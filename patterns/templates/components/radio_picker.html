@@ -1,0 +1,10 @@
+<h2>Radio picker</h2>
+
+<div class="c-radio-picker">
+    {% for item in data.items %}
+        <label for="">
+            <input type="radio" name="{{ name }}" value="{{ item.value }}">
+            {{ item.label }}
+        </label>
+    {% endfor %}
+</div>

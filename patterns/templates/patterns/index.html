@@ -1,0 +1,24 @@
+{% load pattern_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>Some patterns</h1>
+
+    {% component "modal" config='example.conf.ALERT' data=alert_data %}
+
+    {% comment %}
+        TODO: Forms should be Dicts for the template, so that they can also be
+        generated manually from config objects if needed
+     {% endcomment %}
+
+    {% component "radio_picker" data=donation_amounts config='example.conf.DONATION_CONFIG' %}
+    {% component "radio_picker" data=donation_amounts config='example.conf.VOLUNTEER_OPTIONS_CONFIG' %}
+
+    {% component "drop_down" config='example.conf.GENERIC_DROPDOWN' %}
+
+</body>
+</html>
