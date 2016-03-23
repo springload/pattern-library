@@ -1,5 +1,5 @@
 from patterns.components.base import BaseComponent
 
 
-class RadioPicker(BaseComponent):
+class Button(BaseComponent):
     pass

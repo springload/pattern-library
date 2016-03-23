@@ -5,8 +5,7 @@ from django import template
 from django.template import Context, Node
 from django.utils.safestring import mark_safe
 
-import patterns.components
-from patterns.base_component import BaseComponent
+from patterns.components.base import get_class
 
 
 register = template.Library()
@@ -31,14 +30,6 @@ def load_dict(path):
     return attrs
 
 
-def get_class(name):
-    try:
-        return getattr(patterns.components, name)
-    except AttributeError:
-        print "Component class '%s' not found" % name
-        return BaseComponent
-
-
 class Component(Node):
     def __init__(self, component_name, **kwargs):
         self.component_name = component_name
@@ -57,13 +48,8 @@ class Component(Node):
             return {}
 
     def render(self, context):
-        component_class = self.component_name.replace("_", " ").title().replace(" ", "")
-        _class = get_class(component_class)
-
-        if hasattr(self, 'data'):
-            print 'self.data:', self.data
-
-        instance = _class(self.component_name, context, self.get_data())
+        _class = get_class(self.component_name)
+        instance = _class(context, self.get_data())
         return instance.render(Context({'arguments': self.arguments}, autoescape=context.autoescape))
 
 
@@ -74,8 +60,7 @@ def load_data(path):
 
 @register.simple_tag(takes_context=True)
 def component(context, component_name, **kwargs):
-    component = Component(component_name, **kwargs)
-    return component.render(context)
+    return Component(component_name, **kwargs).render(context)
 
 
 @register.assignment_tag
@@ -99,7 +84,6 @@ class OptionNode(template.Node):
 
     def render(self, context):
         node_content = self.nodelist.render(context)
-        print(node_content)
         context[self.option_name] = json.loads(node_content)
         return ''
 
@@ -119,15 +103,14 @@ def options(parser, token):
     return OptionNode(option_name, nodelist)
 
 
-
 @register.filter(name='htmlattributes', is_safe=True, needs_autoescape=False)
-def htmlattributes(hash):
+def htmlattributes(hash_):
     string = ""
 
-    if not isinstance(hash, dict):
+    if not isinstance(hash_, dict):
         return ""
 
-    for key, val in hash.iteritems():
+    for key, val in hash_.iteritems():
         if val.startswith('\"') or val.endswith('\"'):
             continue
 

@@ -1,0 +1,5 @@
+{% load pattern_tags %}
+
+<button class="btn{{ data.class|join:' ' }}" {{ data.attrs|htmlattributes }}>
+    {{ data.label }}
+</button>
