@@ -4,11 +4,16 @@ from django.shortcuts import render
 # Create your views here.
 def index(request):
     return render(request, 'patterns/index.html', {
+        'button_data': {
+            'label': 'A button',
+            'type': 'Primary'
+        },
         'alert_data': {
             'content': 'This is the alert'
         },
         'donation_amounts': {
-            'items': [
+            'name': 'donations',
+            'options': [
                 {
                     'name': 'donations',
                     'value': 50,

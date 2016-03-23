@@ -3,22 +3,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Components</title>
 </head>
 <body>
     <h1>Some patterns</h1>
 
-    {% component "modal" config='example.conf.ALERT' data=alert_data %}
+    {% load_data "example.data.BUTTON_DATA" as common_data %}
+
+    <h3>Default button</h3>
+    {% component "button" data=common_data  %}
+    <pre>{% jsonify common_data %}</pre>
+
+    <h3>Button with extended options</h3>
+    {% options button_data %}
+      {
+        "class": [
+          "btn",
+          "btn-primary",
+          "btn-options"
+        ],
+        "attrs": {
+            "data-button": "some-value"
+        },
+        "label": "{{ 'I changed the label' }}"
+      }
+    {% endoptions %}
+    {% merge common_data button_data as final_button_data %}
+
+    {% component "button" data=final_button_data  %}
+
+    <pre>{% jsonify final_button_data %}</pre>
+
+    <hr>
+    {% component "modal" data=alert_data %}
+    <hr>
+    {% component "radio_picker" data='example.data.DONATION_DATA' %}
+    <hr>
+    {% component "radio_picker" data='example.data.DONATION_DATA' %}
+    <hr>
+    {% component "drop_down" data='example.conf.GENERIC_DROPDOWN' %}
 
     {% comment %}
         TODO: Forms should be Dicts for the template, so that they can also be
         generated manually from config objects if needed
-     {% endcomment %}
-
-    {% component "radio_picker" data=donation_amounts config='example.conf.DONATION_CONFIG' %}
-    {% component "radio_picker" data=donation_amounts config='example.conf.VOLUNTEER_OPTIONS_CONFIG' %}
-
-    {% component "drop_down" config='example.conf.GENERIC_DROPDOWN' %}
+    {% endcomment %}
 
 </body>
 </html>

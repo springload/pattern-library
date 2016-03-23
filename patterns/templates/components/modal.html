@@ -1,8 +1,8 @@
 <div class="c-modal">
     <h3>
-        {{ name|default:config.title }}
+        {{ data.name|default:"" }}
     </h3>
-    Type: {{ config.type }}
+    Type: {{ data.type }}
     <p>
         This would be a modal.
     </p>

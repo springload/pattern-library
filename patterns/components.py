@@ -7,7 +7,7 @@ class RadioPicker(BaseComponent):
 
 class Modal(BaseComponent):
     defaults = {
-        'title': 'This is a modal'
+        'title': 'This is a modal',
     }
 
 
