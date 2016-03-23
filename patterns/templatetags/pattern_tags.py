@@ -93,14 +93,21 @@ def merge(x, y):
 
 class OptionNode(template.Node):
 
-    def __init__(self, option_name, nodelist):
+    def __init__(self, option_name, nodelist, dict_to_merge=False):
         self.option_name = option_name
         self.nodelist = nodelist
 
+        if dict_to_merge:
+            self.dict_to_merge = dict_to_merge
+
     def render(self, context):
         node_content = self.nodelist.render(context)
-        print(node_content)
-        context[self.option_name] = json.loads(node_content)
+        data = json.loads(node_content)
+
+        if hasattr(self, 'dict_to_merge'):
+            data = merge(context[self.dict_to_merge], data)
+
+        context[self.option_name] = data
         return ''
 
 
@@ -111,13 +118,34 @@ def jsonify(var):
 
 @register.tag
 def options(parser, token):
-    option_name = token.split_contents()[-1]
+    """
+    Takes the contents of a block tag and attempts to parse them as JSON.
+
+    {% options export_name %}
+        {"label": "foo"}
+    {% end options %}
+
+    Can also optionally accept a first parameter, the name of a dict from the
+    context that you would like to merge the parsed JSON with.
+
+    {% options merge_dict_name export_name %}
+        {"label": "foo"}
+    {% end options %}
+
+    """
+    original_options = False
+
+    try:
+        name, original_options, option_name = token.split_contents()
+    except ValueError:
+        name, option_name = token.split_contents()
+    except ValueError:
+        raise ValueError("Incorrect number of arguments passed to options")
 
     nodelist = parser.parse(('endoptions',))
     parser.delete_first_token()
 
-    return OptionNode(option_name, nodelist)
-
+    return OptionNode(option_name, nodelist, original_options)
 
 
 @register.filter(name='htmlattributes', is_safe=True, needs_autoescape=False)
