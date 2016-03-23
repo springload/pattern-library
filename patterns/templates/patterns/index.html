@@ -8,14 +8,25 @@
 <body>
     <h1>Some patterns</h1>
 
-    {% load_data "example.data.BUTTON_DATA" as common_data %}
+    {% load_data "example.conf.BUTTON_DATA" as common_data %}
 
     <h3>Default button</h3>
     {% component "button" data=common_data  %}
     <pre>{% jsonify common_data %}</pre>
 
-    <h3>Button with extended options</h3>
+
     {% options button_data %}
+      {
+        "label": "{{ 'A label!' }}",
+        "class": ["btn-primary"]
+      }
+    {% endoptions %}
+    {% component "button" data=button_data %}
+    <pre>{% jsonify button_data %}</pre>
+
+    <h3>Button with extended options</h3>
+
+    {% options common_data button_data %}
       {
         "class": [
           "btn",
@@ -28,11 +39,10 @@
         "label": "{{ 'I changed the label' }}"
       }
     {% endoptions %}
-    {% merge common_data button_data as final_button_data %}
+    {% component "button" data=button_data %}
 
-    {% component "button" data=final_button_data  %}
+    <pre>{% jsonify button_data %}</pre>
 
-    <pre>{% jsonify final_button_data %}</pre>
 
     <hr>
     {% component "modal" data=alert_data %}
