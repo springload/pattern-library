@@ -78,18 +78,18 @@ def merge(x, y):
 
 class OptionNode(template.Node):
 
-    def __init__(self, option_name, nodelist, dict_to_merge=False):
+    def __init__(self, option_name, nodelist, dict_to_merge=None):
+
         self.option_name = option_name
         self.nodelist = nodelist
-
-        if dict_to_merge:
-            self.dict_to_merge = dict_to_merge
+        self.dict_to_merge = dict_to_merge
 
     def render(self, context):
+
         node_content = self.nodelist.render(context)
         data = json.loads(node_content)
 
-        if hasattr(self, 'dict_to_merge'):
+        if self.dict_to_merge:
             data = merge(context[self.dict_to_merge], data)
 
         context[self.option_name] = data
@@ -117,14 +117,17 @@ def options(parser, token):
         {"label": "foo"}
     {% end options %}
     """
-    original_options = False
 
-    try:
-        name, original_options, option_name = token.split_contents()
-    except ValueError:
+    bits = token.split_contents()
+    if len(bits) == 3:
+        name, original_options, option_name = bits
+
+    elif len(bits) == 2:
         name, option_name = token.split_contents()
-    except ValueError:
-        raise ValueError("Incorrect number of arguments passed to options")
+        original_options = None
+
+    else:
+        raise ValueError("Incorrect number of arguments passed to options. Expecting 2 or 3.")
 
     nodelist = parser.parse(('endoptions',))
     parser.delete_first_token()
