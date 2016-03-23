@@ -78,19 +78,20 @@ def merge(x, y):
 
 class OptionNode(template.Node):
 
-    def __init__(self, option_name, nodelist, dict_to_merge=None):
+    def __init__(self, option_name, nodelist, defaults_name=None):
 
         self.option_name = option_name
         self.nodelist = nodelist
-        self.dict_to_merge = dict_to_merge
+        self.defaults_name = defaults_name
 
     def render(self, context):
 
         node_content = self.nodelist.render(context)
         data = json.loads(node_content)
 
-        if self.dict_to_merge:
-            data = merge(context[self.dict_to_merge], data)
+        if self.defaults_name:
+            defaults = context[self.defaults_name]
+            data = merge(defaults, data)
 
         context[self.option_name] = data
         return ''
@@ -120,11 +121,11 @@ def options(parser, token):
 
     bits = token.split_contents()
     if len(bits) == 3:
-        name, original_options, option_name = bits
+        tag_name, defaults_name, option_name = bits
 
     elif len(bits) == 2:
-        name, option_name = token.split_contents()
-        original_options = None
+        tag_name, option_name = token.split_contents()
+        defaults_name = None
 
     else:
         raise ValueError("Incorrect number of arguments passed to options. Expecting 2 or 3.")
@@ -132,7 +133,7 @@ def options(parser, token):
     nodelist = parser.parse(('endoptions',))
     parser.delete_first_token()
 
-    return OptionNode(option_name, nodelist, original_options)
+    return OptionNode(option_name, nodelist, defaults_name)
 
 
 @register.filter(name='htmlattributes', is_safe=True, needs_autoescape=False)
