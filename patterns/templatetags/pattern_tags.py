@@ -30,7 +30,7 @@ def load_dict(path):
     return attrs
 
 
-class Component(Node):
+class ComponentNode(Node):
     def __init__(self, component_name, **kwargs):
         self.component_name = component_name
         self.arguments = kwargs
@@ -60,7 +60,7 @@ def load_data(path):
 
 @register.simple_tag(takes_context=True)
 def component(context, component_name, **kwargs):
-    return Component(component_name, **kwargs).render(context)
+    return ComponentNode(component_name, **kwargs).render(context)
 
 
 @register.assignment_tag
@@ -116,7 +116,6 @@ def options(parser, token):
     {% options merge_dict_name export_name %}
         {"label": "foo"}
     {% end options %}
-
     """
     original_options = False
 
@@ -131,6 +130,7 @@ def options(parser, token):
     parser.delete_first_token()
 
     return OptionNode(option_name, nodelist, original_options)
+
 
 @register.filter(name='htmlattributes', is_safe=True, needs_autoescape=False)
 def htmlattributes(hash_):
