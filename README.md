@@ -38,13 +38,12 @@ Or both:
 
 ```twig
 {% load_data "example.data.BUTTON_DATA" as common_data %}
-{% options button_data %}
+{% options common_data button_data %}
   {
     "label": "{{ 'I changed the label' }}"
   }
 {% endoptions %}
-{% merge common_data button_data as final_button_data %}
-{% component "button" data=final_button_data  %}
+{% component "button" data=button_data  %}
 ```
 
 ## Starting the server
