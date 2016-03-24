@@ -1,0 +1,15 @@
+defaults:
+    title: 'thing'
+    options:
+      - value: 'foo'
+        label: 1
+      - value: 'bar'
+        label: 2
+schema:
+    title:
+      type: 'STRING'
+      description: "The title attribute as it appears in the block"
+    options:
+      type: 'LIST'
+      description: "A list of options."
+

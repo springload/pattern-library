@@ -1,8 +1,10 @@
-<div class="c-radio-picker">
+<div class="c-radio-picker {{data.class}}" {{data.attrs|htmlattributes}}>
     {% for item in data.options %}
+        {% block item %}
         <label>
             <input type="radio" name="{{ data.name }}" value="{{ item.value }}">
             {{ item.label }}
         </label>
+        {% endblock %}
     {% endfor %}
 </div>

@@ -25,8 +25,8 @@ DONATION_DATA = {
     'options': [
         {
             'name': 'donations',
-            'value': 50,
-            'label': '$50'
+            'value': 51,
+            'label': '$51'
         },
         {
             'name': 'donations',
