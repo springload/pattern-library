@@ -54,21 +54,14 @@ Or both:
 
 ## Custom components
 
-To add custom components or override existing ones:
+### Setup your own app
 1. Create a new application `./manage.py startapp my_app`
 1. Update `PROJECT/settings.py`:
-  - Add `my_app_` to `INSTALLED_APP` **before** `patterns`
+  - Add `my_app` to `INSTALLED_APP` **before** `patterns`
   - Add `os.path.join(BASE_DIR, 'my__app', 'components')` to `TEMPLATES['DIRS']` **before** `os.path.join(BASE_DIR, 'patterns', 'components')`
-1. Create a `components` folder in `my_app`
-1. Inside of `my_app/components` create the following structure:
-```
-my_button
-    my_button.html
-    my_button.json
-    my_button.py
-    my_button.scss
-    README.md
-```
+
+### Create new components
+Use `./manage.py createcomponent my_app my_component` to scafold the basic structure under `my_app/components/`
 
 ## Starting the server
 
