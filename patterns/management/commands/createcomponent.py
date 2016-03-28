@@ -19,6 +19,7 @@ class Command(BaseCommand):
         # Inputs
         app_name = options['app'].strip()
         component_name = camel_to_snake(options['component'].strip())
+        component_class_name = snake_to_camel(component_name)
         component_path = os.path.join(settings.BASE_DIR, app_name, 'components', component_name)
 
         # Handle errors
@@ -46,9 +47,13 @@ class Command(BaseCommand):
         style_file = os.path.join(component_path, component_name + '.scss')
         open(style_file, 'w').close()
 
+        readme_file = os.path.join(component_path, 'README.md')
+        with open(readme_file, 'w') as f:
+            f.write('## {name}'.format(name=component_class_name))
+
         python_file = os.path.join(component_path, component_name + '.py')
         with open(python_file, 'w') as f:
             f.write(
                 'from patterns.components.base import BaseComponent\n\n\n'
-                'class {klass}(BaseComponent):\n    pass\n'.format(klass=snake_to_camel(component_name))
+                'class {klass}(BaseComponent):\n    pass\n'.format(klass=component_class_name)
             )
