@@ -32,5 +32,3 @@ def index(request):
             ]
         }
     })
-
-
