@@ -1,0 +1,39 @@
+{% extends "patterns/base.html" %}
+{% load component_tags %}
+
+{% block title %}All patterns{% endblock %}
+
+{% block body %}
+    <h1>All components</h1>
+
+    {% for component in components %}
+        {% if component != 'MissingComponent' and component != 'BaseComponent' %}
+        {% with component as component_name %}
+        <h3>{{ component_name }}</h3>
+        <div>
+            {% raw_component component_name as comp %}
+            {% render_component comp.instance data=comp.instance.config.demo %}
+            {% include "patterns/code_sample.html" with component=comp%}
+        </div>
+        <h4>Options</h4>
+
+        {% for key, val in comp.instance.config.schema.items %}
+            <dl>
+                <dt>
+                    {{ key }}
+                </dt>
+                <dd>
+                    <code>
+                     {{ val.type }}
+                    </code>
+                    {{ val.description }}
+                </dd>
+            </dl>
+
+        {% endfor %}
+        {% endwith %}
+
+        <hr>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

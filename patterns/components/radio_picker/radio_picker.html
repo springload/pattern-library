@@ -1,12 +1,12 @@
 {% load component_tags %}
-
-<div class="c-radio-picker {{data.class}}" {{data.attrs|htmlattributes}}>
-    {% for item in data.options %}
-        {% block item %}
-        <label>
-            <input type="radio" name="{{ data.name }}" value="{{ item.value }}">
-            {{ item.label }}
-        </label>
-        {% endblock %}
-    {% endfor %}
+<div class="c-radio-picker{% if data.class %} {{data.class}}{% endif %}"{% if data.attrs %} {{data.attrs|htmlattributes}}{% endif %}>
+{% for item in data.options %}
+    {% block item %}
+    <label>
+        <input type="radio" name="{{ data.name }}" value="{{ item.value }}">
+        {{ item.label }}
+    </label>
+    {% endblock %}
+{% endfor %}
 </div>
+

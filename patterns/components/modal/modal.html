@@ -1,9 +1,15 @@
+{% load component_tags %}
+
 <div class="c-modal">
     <h3>
-        {{ data.name|default:"" }}
+        {{ data.title|default:"" }}
     </h3>
-    Type: {{ data.type }}
     <p>
-        This would be a modal.
+        {{ data.body }}
     </p>
+    <div class="c-modal__actions">
+        {% for action in data.actions %}
+            {% component "button" data=action %}
+        {% endfor %}
+    </div>
 </div>

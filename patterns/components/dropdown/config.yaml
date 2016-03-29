@@ -1,0 +1,30 @@
+demo:
+  name: 'demo_dropdown'
+  id: 'demo_dropdown'
+  value: 'option-3'
+  placeholder: 'Please choose:'
+  options:
+    - label: 'Option 1'
+      value: 'option-1'
+    - label: 'Option 2'
+      value: 'option-2'
+    - label: 'Option 3'
+      value: 'option-3'
+    - label: 'Option 4'
+      value: 'option-4'
+schema:
+  name:
+    type: string
+    description: The field name
+  id:
+    type: string
+    description: The field's id. This is usually the same as the name
+  value:
+    type: string
+    description: The current selected value for the dropdown
+  placeholder:
+    type: string
+    description: A disabled, default value for the select, often used as a placeholder.
+  options:
+    type: array
+    description: A list of value/label pairs describing the select's options.

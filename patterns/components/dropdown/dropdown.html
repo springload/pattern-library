@@ -1,5 +1,10 @@
-<div class="c-dropdown">
-    <select>
-        <option value="">It's an accessible dropdown!</option>
+<div class="c-dropdown" data-accessible-dropdown="{{ data.name }}">
+    <select name="{{ data.name }}" id="{{ data.id }}">
+        {% if data.placeholder %}
+        <option value="" disabled>{{ data.placeholder }}</option>
+        {% endif %}
+        {% for option in data.options %}
+        <option value="{{ option.value }}"{% if data.value == option.value %} selected{% endif %}>{{ option.label }}</option>
+        {% endfor %}
     </select>
 </div>

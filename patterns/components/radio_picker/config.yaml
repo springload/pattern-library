@@ -1,15 +1,23 @@
 defaults:
-    title: 'thing'
-    options:
-      - value: 'foo'
-        label: 1
-      - value: 'bar'
-        label: 2
+  title: ''
+  options: false
+demo:
+  name: 'some_field'
+  title: ''
+  options:
+    - label: 'Foo'
+      value: 1
+    - label: 'Bar'
+      value: 2
 schema:
-    title:
-      type: 'STRING'
-      description: "The title attribute as it appears in the block"
-    options:
-      type: 'LIST'
-      description: "A list of options."
+  title:
+    type: string
+    description: "The title attribute as it appears in the block"
+  options:
+    type: array
+    description: "A list of options."
+  name:
+    type: string
+    description: "the Django field name"
+
 

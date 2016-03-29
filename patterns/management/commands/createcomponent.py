@@ -41,7 +41,7 @@ class Command(BaseCommand):
         html_file = os.path.join(component_path, component_name + '.html')
         open(html_file, 'w').close()
 
-        options_file = os.path.join(component_path, component_name + '.json')
+        options_file = os.path.join(component_path, component_name + '.yaml')
         open(options_file, 'w').close()
 
         style_file = os.path.join(component_path, component_name + '.scss')

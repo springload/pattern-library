@@ -1,0 +1,16 @@
+demo:
+  title: 'A sample modal'
+  body: 'The modal body text'
+  actions:
+    - label: 'Confirm'
+    - label: 'Cancel'
+schema:
+  title:
+    type: string
+    description: The modal's title
+  body:
+    type: string
+    description: Body text (can be rich text)
+  actions:
+    type: array
+    description: A list of button actions to be performed.

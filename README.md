@@ -2,9 +2,12 @@
 
 This is some _very_ initial thinking about how a pattern library could work.
 
-The folder structure isn't right. And it doesn't do much for now. But it's a start.
 
 ## Installation
+
+1. Check out the project.
+2. Run `pip install requirements.txt` in the project root.
+
 
 In `PROJECT/settings.py`:
  - Add `patterns` to `INSTALLED_APP`

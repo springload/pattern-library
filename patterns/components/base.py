@@ -1,19 +1,45 @@
-from functools import partial
 import imp
+import inspect
 import os
+import yaml
+from functools import partial
 
 from django.conf import settings
-from django.template import Node, Template
-
+from django.template import Node, Template, TemplateDoesNotExist
+from django.template import Context
 from patterns.components.utils import camel_to_snake, snake_to_camel
+
+registry = {}
+
+
+def register_class(target_class):
+    registry[target_class.__name__] = target_class
+
+
+class Meta(type):
+    def __new__(meta, name, bases, class_dict):
+        cls = type.__new__(meta, name, bases, class_dict)
+        register_class(cls)
+        return cls
 
 
 class BaseComponent(Node):
+    __metaclass__ = Meta
 
     def __init__(self, context, data):
-
         self.context = context
+        path = inspect.getfile(self.__class__)
+        dirname = os.path.dirname(path)
         self.data = data
+
+        try:
+            with open(os.path.join(dirname, 'config.yaml'), 'r') as stream:
+                self.config = yaml.load(stream)
+        except IOError:
+            self.config = {}
+
+    def name(self):
+        return camel_to_snake(self.__class__.__name__)
 
     def set_data(self, data):
         self.data = data
@@ -22,7 +48,10 @@ class BaseComponent(Node):
 
         data = {}
 
-        if self.data:
+        if hasattr(self, 'config'):
+            data.update(self.config)
+
+        if hasattr(self, 'data'):
             data.update(self.data)
 
         data['type'] = self.__class__.__name__
@@ -30,33 +59,36 @@ class BaseComponent(Node):
         return data
 
     def get_template_path(self):
-
         name = camel_to_snake(self.__class__.__name__)
-
         return '{name}/{name}.html'.format(name=name)
 
-    def get_template(self):
+    def get_template(self, context):
+        if self.__class__.__name__ == 'BaseComponent':
+            return Template('')
 
         template_path = self.get_template_path()
         template = self.context.template.engine.get_template(template_path)
-
         return template
 
-    def render(self, context):
-
+    def render(self, context, **kwargs):
         context['data'] = self.get_data()
+        if 'data' in kwargs:
+            context['data'] = kwargs['data']
 
-        return self.get_template().render(context)
+        return self.get_template(context).render(context)
 
 
 class MissingComponent(BaseComponent):
-
-    def __init__(self, context, data, component_name):
+    """
+    Returns a warning about missing component templates if the app is in debug mode.
+    Otherwise, returns an empty string as the template for production environments.
+    """
+    def __init__(self, context, data, component_name=None):
 
         super(MissingComponent, self).__init__(context, data)
         self.component_name = component_name
 
-    def get_template(self):
+    def get_template(self, context):
 
         text = '<strong>Missing Component: {0}</strong>'.format(self.component_name) if settings.DEBUG else ''
         template = Template(text)
@@ -65,21 +97,26 @@ class MissingComponent(BaseComponent):
 
 
 def get_class(component_name):
+    class_name = snake_to_camel(component_name)
+    _class = None
+
+    print class_name
 
     try:
-        possible_paths = [
-            os.path.join(app, 'components', component_name)
-            for app in settings.INSTALLED_APPS
-            if not app.startswith('django.')
-        ]
+        _class = registry[class_name]
+    except KeyError:
+        try:
+            possible_paths = [
+                os.path.join(app, 'components', component_name)
+                for app in settings.INSTALLED_APPS
+                if not app.startswith('django.')
+            ]
 
-        module_info = imp.find_module(component_name, possible_paths)
-        module = imp.load_module(component_name, *module_info)
+            module_info = imp.find_module(component_name, possible_paths)
+            module = imp.load_module(component_name, *module_info)
+            print module
+            _class = getattr(module, class_name)
+        except (AttributeError, ImportError):
+            _class = partial(MissingComponent, component_name=component_name)
 
-        class_name = snake_to_camel(component_name)
-        class_ = getattr(module, class_name)
-
-        return class_
-
-    except (AttributeError, ImportError):
-        return partial(MissingComponent, component_name=component_name)
+    return _class

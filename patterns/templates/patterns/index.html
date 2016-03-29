@@ -1,11 +1,9 @@
+{% extends "patterns/base.html" %}
+
 {% load component_tags %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Components</title>
-</head>
-<body>
-    <h1>Some patterns</h1>
+
+{% block body %}
+    <h1>Components</h1>
 
     {% load_data "example.conf.BUTTON_DATA" as common_data %}
 
@@ -21,13 +19,12 @@
     {% endoptions %}
     {% component "button" data=button_data %}
 
-    {#     {% print_all_the_things page.data %}#}
 
     <pre>{% jsonify button_data %}</pre>
 
     <h3>Button with extended options</h3>
 
-    {% options common_data button_data %}
+    {% options 'example.conf.DEFAULT_BUTTON' button_data %}
       {
         "class": [
           "btn",
@@ -52,10 +49,4 @@
     <hr>
     {% component "dropdown" data='example.conf.GENERIC_DROPDOWN' %}
 
-    {% comment %}
-        TODO: Forms should be Dicts for the template, so that they can also be
-        generated manually from config objects if needed
-    {% endcomment %}
-
-</body>
-</html>
+{% endblock %}

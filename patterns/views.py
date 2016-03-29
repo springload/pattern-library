@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from components.base import registry
 
 
 # Create your views here.
@@ -32,3 +33,12 @@ def index(request):
             ]
         }
     })
+
+
+def all(request):
+
+    context = {
+        'components': registry
+    }
+
+    return render(request, 'patterns/all.html', context)
