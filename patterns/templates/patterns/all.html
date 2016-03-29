@@ -4,36 +4,65 @@
 {% block title %}All patterns{% endblock %}
 
 {% block body %}
-    <h1>All components</h1>
+<div class="panels">
+
+    <div class="panel-left">
+        <div class="nav">
+            {% for component in components %}
+            <div class='nav__item'>
+                {% with component as component_name %}
+                    <a href="#{{component_name}}">{{component_name}}</a>
+                {% endwith %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="panel-right">
+
+
+    <div class="container">
+        <h1>All components</h1>
+    </div>
+
+    <div class="container component-library">
 
     {% for component in components %}
-        {% if component != 'MissingComponent' and component != 'BaseComponent' %}
+
+        <div class="component">
         {% with component as component_name %}
-        <h3>{{ component_name }}</h3>
-        <div>
+        <h3 id="{{ component_name }}">{{ component_name }}</h3>
+        <div class="component__specs">
             {% raw_component component_name as comp %}
-            {% render_component comp.instance data=comp.instance.config.demo %}
+            <div class="component__example">
+                {% render_component comp.instance data=comp.instance.config.demo %}
+
+            </div>
             {% include "patterns/code_sample.html" with component=comp%}
         </div>
         <h4>Options</h4>
 
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <td class='table__colheader'>Property</td>
+                        <td class='table__colheader'>Type</td>
+                        <td class='table__colheader'>Description</td>
+                    </tr>
+                </thead>
         {% for key, val in comp.instance.config.schema.items %}
-            <dl>
-                <dt>
-                    {{ key }}
-                </dt>
-                <dd>
-                    <code>
-                     {{ val.type }}
-                    </code>
-                    {{ val.description }}
-                </dd>
-            </dl>
-
+            <tr>
+                <td>{{ key }}</td>
+                <td><span class="pill t-{{val.type}}">{{ val.type }}</span></td>
+                <td>{{ val.description }}</td>
+            </tr>
         {% endfor %}
+            </table>
         {% endwith %}
 
-        <hr>
-        {% endif %}
+        </div>
     {% endfor %}
+    </div>
+    </div>
+</div>
+
 {% endblock %}

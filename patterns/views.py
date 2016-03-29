@@ -37,6 +37,9 @@ def index(request):
 
 def all(request):
 
+    registry.pop('BaseComponent', None)
+    registry.pop('MissingComponent', None)
+
     context = {
         'components': registry
     }

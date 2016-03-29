@@ -1,8 +1,10 @@
 {% load component_tags %}
 
-<pre style="background: #eee; padding: .5em;">
+<pre>
+<code class="language-javascript">
 {% jsonify component.instance.config.demo %}
+</code>
 </pre>
-<pre style="background: #444; color: #fff; padding:  .5em;">
-<code>{% filter force_escape %}{% pretty %}{% render_component component.instance data=component.instance.config.demo %}{% endpretty %}{% endfilter %}</code>
+<pre >
+<code class="language-html">{% filter force_escape %}{% pretty %}{% render_component component.instance data=component.instance.config.demo %}{% endpretty %}{% endfilter %}</code>
 </pre>
