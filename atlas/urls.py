@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from patterns import views as patterns_views
+import patterns.urls as patterns_urls
+import example.urls as example_urls
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^all', patterns_views.all),
-    url(r'^', patterns_views.index),
+    url(r'^pattern-library/', include(patterns_urls)),
+    url(r'^', include(example_urls))
 ]

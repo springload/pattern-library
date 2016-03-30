@@ -8,7 +8,11 @@ schema:
     description: "The button's label"
   attrs:
     type: object
-    description: "A hash of HTML attributes, e.g: { 'data-tooltip': 'my tooltip' }"
+    description: "A hash of HTML attributes, e.g:"
+    example: >
+      {
+        "data-tooltip": "my tooltip"
+      }
   class:
     type: array
     description: "A list of class names to be added to the button, e.g: ['foo','bar']"

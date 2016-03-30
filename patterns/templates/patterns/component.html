@@ -1,0 +1,51 @@
+{% load component_tags %}
+
+<div class="card paper-material component" id="{{ name }}">
+<h5 class='component__title'>{{ name }}</h5>
+{% raw_component name as comp %}
+
+<div class="markdown component__description">
+    {{ comp.instance.readme|markdown }}
+</div>
+
+<div class="component__options">
+
+    <h4>Usage</h4>
+    <p class='font-small'>
+<pre class="font-small"><code class="language-twig">{% templatetag openblock %} component "{{ name|snakeify }}" data=my_options {% templatetag closeblock %}</code></pre>
+    </p>
+
+    <h4>Options</h4>
+
+    <table class='font-small table'>
+        <thead>
+            <tr>
+                <td class='table__colheader'>Property</td>
+                <td class='table__colheader'>Type</td>
+                <td class='table__colheader'>Description</td>
+            </tr>
+        </thead>
+        {% for key, val in comp.instance.config.schema.items %}
+        <tr>
+            <td>{{ key }}</td>
+            <td><span class="pill t-{{val.type}}">{{ val.type }}</span></td>
+            <td>
+                {{ val.description }}
+{% if val.example %}
+<pre><code class="language-javascript">{{ val.example }}</code></pre>
+{% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<h4>Example</h4>
+<div class="component__specs">
+
+    <div class="component__example">
+        {% render_component comp.instance data=comp.instance.config.demo %}
+    </div>
+    {% include "patterns/code_sample.html" with component=comp %}
+</div>
+</div>

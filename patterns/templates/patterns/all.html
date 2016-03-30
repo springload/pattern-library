@@ -6,62 +6,25 @@
 {% block body %}
 <div class="panels">
 
-    <div class="panel-left">
+    <div class="panel-left depth-1">
         <div class="nav">
-            {% for component in components %}
+            {% for name, component in components.items %}
             <div class='nav__item'>
-                {% with component as component_name %}
-                    <a href="#{{component_name}}">{{component_name}}</a>
-                {% endwith %}
+                <a href=" {% url 'pattern_library_component' name %}">{{name}}</a>
             </div>
             {% endfor %}
         </div>
     </div>
     <div class="panel-right">
-
-
-    <div class="container">
-        <h1>All components</h1>
-    </div>
-
-    <div class="container component-library">
-
-    {% for component in components %}
-
-        <div class="component">
-        {% with component as component_name %}
-        <h3 id="{{ component_name }}">{{ component_name }}</h3>
-        <div class="component__specs">
-            {% raw_component component_name as comp %}
-            <div class="component__example">
-                {% render_component comp.instance data=comp.instance.config.demo %}
-
-            </div>
-            {% include "patterns/code_sample.html" with component=comp%}
+        <div class="container">
+            <h1>All components</h1>
         </div>
-        <h4>Options</h4>
 
-            <table class='table'>
-                <thead>
-                    <tr>
-                        <td class='table__colheader'>Property</td>
-                        <td class='table__colheader'>Type</td>
-                        <td class='table__colheader'>Description</td>
-                    </tr>
-                </thead>
-        {% for key, val in comp.instance.config.schema.items %}
-            <tr>
-                <td>{{ key }}</td>
-                <td><span class="pill t-{{val.type}}">{{ val.type }}</span></td>
-                <td>{{ val.description }}</td>
-            </tr>
+        <div class="container component-library" >
+        {% for name, component in components.items %}
+            {% include "patterns/component.html" with name=name  %}
         {% endfor %}
-            </table>
-        {% endwith %}
-
         </div>
-    {% endfor %}
-    </div>
     </div>
 </div>
 

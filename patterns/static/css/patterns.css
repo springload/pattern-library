@@ -1,17 +1,34 @@
 body {
-    font-family: sans-serif;
-    background: #fafafa;
+    font-family: 'Roboto', sans-serif;
+    background: #ececec;
     margin: 0;
+    color: #636E77;
+    line-height: 1.5;
 }
 
 h1, h2, h3, h4 {
     margin-top: 0;
 }
 
+h1 {
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    color: #00bcd4;
+}
+
+h2, h3 {
+    font-weight: 400;
+}
+
+h4 {
+    font-weight: 400;
+    color: #00bcd4;
+}
+
 .container {
-    max-width: 60rem;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 50rem;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
 }
 
 .component-library {
@@ -20,20 +37,45 @@ h1, h2, h3, h4 {
 
 .component {
     margin-bottom: 4rem;
-    background: #fff;
     padding: 1.5em 2em;
-    border: solid 1px #ddd;
-    border-radius: .125em;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+}
+
+.component__title {
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-bottom: .25rem;
+    margin-top: 0;
+    border-bottom: dotted 1px #eee;
+    color: #aaa;
+}
+
+
+.paper-material {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    background: #fff;
 }
 
 .component__example {
-    padding: 1em;
-    background: #F5F2F0;
+    padding: 1rem;
+}
+
+.component__description,
+.component__options {
+    margin-bottom: 2rem;
 }
 
 .component__specs {
     margin-bottom: 2rem;
+    font-size: 14px;
+}
+
+.font-small {
+    font-size: 14px;
 }
 
 
@@ -76,18 +118,30 @@ h1, h2, h3, h4 {
 .panels {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    align-items: stretch;
+    flex-flow: flex-start;
 }
 
 .panel-left {
     width: 200px;
     padding: 1.5rem 1rem;
-    background: #eee;
     border-right: solid 1px #ddd;
 }
+
+
+.depth-1 {
+    background: #f2f2f2;
+}
+
+
 
 .panel-right {
     margin-left: 3rem;
     margin-top: 1.5rem;
+    flex: 1;
 }
 
 
@@ -101,12 +155,14 @@ h1, h2, h3, h4 {
 }
 
 .nav__item a {
-    color: #07a;
+    /*color: #07a;*/
+    color: #0099AD;
     text-decoration: none;
 }
 
 .nav__item a:hover {
-    color: #048;
+    /*color: #048;*/
+    color: #0099AD;
 }
 
 
@@ -125,5 +181,11 @@ h1, h2, h3, h4 {
 }
 
 
+
+pre[class*=language],
+.component__example,
+.markdown code {
+    background-color: #F3F4F5;
+}
 
 

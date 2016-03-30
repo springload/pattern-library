@@ -1,0 +1,26 @@
+{% extends "patterns/base.html" %}
+{% load component_tags %}
+
+{% block title %}All patterns{% endblock %}
+
+{% block body %}
+
+
+{% raw_component name as comp %}
+
+
+<div class="panels">
+    <div class="depth-1 panel-left">
+        <div class="nav">
+            <div class="nav__item">
+                <a href="{% url "pattern_library" %}">Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="panel-right">
+        <div class="container">
+            {% include "patterns/component.html" with component=foo %}
+        </div>
+    </div>
+</div>
+{% endblock %}

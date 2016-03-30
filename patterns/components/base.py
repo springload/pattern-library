@@ -28,18 +28,35 @@ class BaseComponent(Node):
 
     def __init__(self, context, data):
         self.context = context
-        path = inspect.getfile(self.__class__)
-        dirname = os.path.dirname(path)
         self.data = data
-
-        try:
-            with open(os.path.join(dirname, 'config.yaml'), 'r') as stream:
-                self.config = yaml.load(stream)
-        except IOError:
-            self.config = {}
+        self.dirname = self.get_dirname()
+        self.config = self.get_config()
 
     def name(self):
         return camel_to_snake(self.__class__.__name__)
+
+    def get_dirname(self):
+        path = inspect.getfile(self.__class__)
+        dirname = os.path.dirname(path)
+        return dirname
+
+    def get_config(self):
+        try:
+            with open(os.path.join(self.dirname, 'config.yaml'), 'r') as stream:
+                config = yaml.load(stream)
+        except IOError:
+            config = {}
+
+        return config
+
+    def readme(self):
+        try:
+            with open(os.path.join(self.dirname, 'README.md'), 'r') as stream:
+                self.readme = stream.read()
+        except IOError:
+            self.readme = ""
+
+        return self.readme
 
     def set_data(self, data):
         self.data = data

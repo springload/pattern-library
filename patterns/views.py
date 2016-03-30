@@ -45,3 +45,12 @@ def all(request):
     }
 
     return render(request, 'patterns/all.html', context)
+
+
+def one(request, component_name):
+    context = {
+        'foo': registry[component_name],
+        'name': registry[component_name].__name__
+    }
+
+    return render(request, 'patterns/one.html', context)

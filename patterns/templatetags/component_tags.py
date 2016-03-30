@@ -1,5 +1,6 @@
 import json
 import re
+import markdown2
 
 from bs4 import BeautifulSoup
 from django import template
@@ -199,3 +200,13 @@ def pretty(parser, token):
     nodelist = parser.parse(('endpretty',))
     parser.delete_first_token()
     return PrettyPrintNode(nodelist)
+
+
+@register.filter(is_safe=True)
+def markdown(value):
+    return mark_safe(markdown2.markdown(value))
+
+
+@register.filter()
+def snakeify(value):
+    return camel_to_snake(value)
