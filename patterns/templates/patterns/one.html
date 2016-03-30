@@ -6,9 +6,6 @@
 {% block body %}
 
 
-{% raw_component name as comp %}
-
-
 <div class="panels">
     <div class="depth-1 panel-left">
         <div class="nav">
@@ -19,7 +16,7 @@
     </div>
     <div class="panel-right">
         <div class="container">
-            {% include "patterns/component.html" with component=foo %}
+            {% include "patterns/component.html" with name=name %}
         </div>
     </div>
 </div>

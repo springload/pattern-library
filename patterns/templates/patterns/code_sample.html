@@ -2,9 +2,13 @@
 
 <pre>
 <code class="language-javascript">
-{% jsonify component.instance.config.demo %}
+{% jsonify instance.config.demo %}
 </code>
 </pre>
-<pre >
-<code class="language-html">{% filter force_escape %}{% pretty %}{% render_component component.instance data=component.instance.config.demo %}{% endpretty %}{% endfilter %}</code>
-</pre>
+{% spaceless %}<pre><code class="language-html">{% filter force_escape %}
+{% pretty %}
+{% with name|snakeify as snake_name %}
+{% component snake_name data=instance.config.demo %}
+{% endwith %}
+{% endpretty %}
+{% endfilter %}</code></pre>{% endspaceless %}

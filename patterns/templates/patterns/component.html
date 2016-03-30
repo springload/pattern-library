@@ -2,10 +2,10 @@
 
 <div class="card paper-material component" id="{{ name }}">
 <h5 class='component__title'>{{ name }}</h5>
-{% raw_component name as comp %}
+{% load_component name as instance %}
 
 <div class="markdown component__description">
-    {{ comp.instance.readme|markdown }}
+    {{ instance.readme|markdown }}
 </div>
 
 <div class="component__options">
@@ -25,7 +25,7 @@
                 <td class='table__colheader'>Description</td>
             </tr>
         </thead>
-        {% for key, val in comp.instance.config.schema.items %}
+        {% for key, val in instance.config.schema.items %}
         <tr>
             <td>{{ key }}</td>
             <td><span class="pill t-{{val.type}}">{{ val.type }}</span></td>
@@ -44,8 +44,10 @@
 <div class="component__specs">
 
     <div class="component__example">
-        {% render_component comp.instance data=comp.instance.config.demo %}
+        {% with name|snakeify as snake_name %}
+        {% component snake_name data=instance.config.demo %}
+        {% endwith %}
     </div>
-    {% include "patterns/code_sample.html" with component=comp %}
+    {% include "patterns/code_sample.html" with name=name instance=instance %}
 </div>
 </div>

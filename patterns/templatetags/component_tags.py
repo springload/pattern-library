@@ -24,21 +24,22 @@ class ComponentNode(Node):
         if 'data' in kwargs:
             self.data = kwargs['data']
 
-        self.instance = _class(context, self.get_data())
+        self.instance = _class(context)
         self.context = context
-
 
     def get_data(self):
         if hasattr(self, 'data'):
             if isinstance(self.data, dict):
                 return self.data
             else:
-                return load_dict(self.data)
+                self.data = load_dict(self.data)
+                return self.data
         else:
             return {}
 
     def render(self, context):
-        return self.instance.render(Context({'arguments': self.arguments}, autoescape=context.autoescape))
+        ctx = Context({'arguments': self.arguments, 'data': self.get_data()}, autoescape=context.autoescape)
+        return self.instance.render(ctx)
 
 
 @register.simple_tag(takes_context=True)
@@ -57,15 +58,9 @@ def component(context, component_name, **kwargs):
 
 
 @register.assignment_tag(takes_context=True)
-def component_foo(context, component_name, data,  **kwargs):
-    kwargs['data'] = data
-    return ComponentNode(component_name, context, **kwargs).render(context)
-
-
-@register.assignment_tag(takes_context=True)
-def raw_component(context, component_name, **kwargs):
+def load_component(context, component_name, **kwargs):
     component_name = camel_to_snake(component_name)
-    return ComponentNode(component_name, context, **kwargs)
+    return ComponentNode(component_name, context, **kwargs).instance
 
 
 @register.assignment_tag

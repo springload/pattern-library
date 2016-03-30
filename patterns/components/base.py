@@ -26,11 +26,11 @@ class Meta(type):
 class BaseComponent(Node):
     __metaclass__ = Meta
 
-    def __init__(self, context, data):
+    def __init__(self, context, **kwargs):
         self.context = context
-        self.data = data
         self.dirname = self.get_dirname()
         self.config = self.get_config()
+        self.data = self.get_data()
 
     def name(self):
         return camel_to_snake(self.__class__.__name__)
@@ -71,8 +71,6 @@ class BaseComponent(Node):
         if hasattr(self, 'data'):
             data.update(self.data)
 
-        data['type'] = self.__class__.__name__
-
         return data
 
     def get_template_path(self):
@@ -88,10 +86,6 @@ class BaseComponent(Node):
         return template
 
     def render(self, context, **kwargs):
-        context['data'] = self.get_data()
-        if 'data' in kwargs:
-            context['data'] = kwargs['data']
-
         return self.get_template(context).render(context)
 
 
@@ -100,9 +94,9 @@ class MissingComponent(BaseComponent):
     Returns a warning about missing component templates if the app is in debug mode.
     Otherwise, returns an empty string as the template for production environments.
     """
-    def __init__(self, context, data, component_name=None):
+    def __init__(self, context, component_name=None):
 
-        super(MissingComponent, self).__init__(context, data)
+        super(MissingComponent, self).__init__(context)
         self.component_name = component_name
 
     def get_template(self, context):
@@ -116,8 +110,6 @@ class MissingComponent(BaseComponent):
 def get_class(component_name):
     class_name = snake_to_camel(component_name)
     _class = None
-
-    print class_name
 
     try:
         _class = registry[class_name]

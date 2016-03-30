@@ -37,23 +37,43 @@ class Command(BaseCommand):
 
         # Create component
         os.makedirs(component_path)
+        css_name = 'c-{name}'.format(name=component_name.replace('_', '-'))
 
         html_file = os.path.join(component_path, component_name + '.html')
-        open(html_file, 'w').close()
+        with open(html_file, 'w') as f:
+            f.write("<div class='{css_name}'>\n\n</div>".format(css_name=css_name))
+            f.close()
 
-        options_file = os.path.join(component_path, component_name + '.yaml')
-        open(options_file, 'w').close()
+        options_file = os.path.join(component_path, 'config.yaml')
+        with open(options_file, 'w') as f:
+            defaults = """defaults:
+  title: ''
+
+demo:
+  title: ''
+
+schema:
+  title:
+    type: string
+    description: "The title attribute for the {name}"
+            """.format(name=component_class_name)
+            f.write(defaults)
+            f.close()
 
         style_file = os.path.join(component_path, component_name + '.scss')
-        open(style_file, 'w').close()
+        with open(style_file, 'w') as f:
+            f.write('.%s {\n\n}' % css_name)
+            f.close()
 
         readme_file = os.path.join(component_path, 'README.md')
         with open(readme_file, 'w') as f:
             f.write('## {name}'.format(name=component_class_name))
+            f.close()
 
-        python_file = os.path.join(component_path, component_name + '.py')
+        python_file = os.path.join(component_path, '__init__.py')
         with open(python_file, 'w') as f:
             f.write(
                 'from patterns.components.base import BaseComponent\n\n\n'
                 'class {klass}(BaseComponent):\n    pass\n'.format(klass=component_class_name)
             )
+            f.close()
