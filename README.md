@@ -6,7 +6,7 @@ This is some _very_ initial thinking about how a pattern library could work.
 ## Installation
 
 1. Check out the project.
-2. Run `pip install requirements.txt` in the project root.
+2. Run `pip install -r requirements.txt` in the project root.
 
 
 In `PROJECT/settings.py`:
