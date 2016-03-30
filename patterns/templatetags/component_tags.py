@@ -184,14 +184,7 @@ class PrettyPrintNode(Node):
         self.nodelist = nodelist
 
     def render(self, context):
-        html = BeautifulSoup(self.nodelist.render(context))
-
-        try:
-            html.html.unwrap()
-            html.body.unwrap()
-        except:
-            pass
-
+        html = BeautifulSoup(self.nodelist.render(context), 'html.parser')
         return html.prettify()
 
 
