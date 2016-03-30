@@ -190,8 +190,8 @@ class PrettyPrintNode(Node):
 
     def render(self, context):
         html = BeautifulSoup(self.nodelist.render(context))
-        html.html.unwrap()
-        html.body.unwrap()
+        # html.html.unwrap()
+        # html.body.unwrap()
         return html.prettify()
 
 
