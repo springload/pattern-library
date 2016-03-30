@@ -12,15 +12,22 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
 
         parser.add_argument('app')
-        parser.add_argument('component')
+        parser.add_argument('component', nargs='?', default='')
 
     def handle(self, *args, **options):
 
         # Inputs
         app_name = options['app'].strip()
-        component_name = camel_to_snake(options['component'].strip())
+        component_name = options['component'].strip()
+
+        if app_name and component_name=='':
+            component_name = app_name
+            app_name = 'patterns'
+
+        component_name = camel_to_snake(component_name)
         component_class_name = snake_to_camel(component_name)
-        component_path = os.path.join(settings.BASE_DIR, app_name, 'components', component_name)
+        local_path = os.path.join(app_name, 'components', component_name)
+        component_path = os.path.join(settings.BASE_DIR, local_path)
 
         # Handle errors
         if not app_name:
@@ -77,3 +84,7 @@ schema:
                 'class {klass}(BaseComponent):\n    pass\n'.format(klass=component_class_name)
             )
             f.close()
+
+        for p in [python_file, readme_file, style_file, options_file, html_file]:
+            localised = p.replace(settings.BASE_DIR, '')[1:]
+            print '[Created] {file}'.format(file=localised)
