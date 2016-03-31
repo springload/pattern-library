@@ -14,3 +14,4 @@ schema:
   actions:
     type: array
     description: A list of button actions to be performed.
+    component: 'Button'

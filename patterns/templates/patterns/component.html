@@ -28,8 +28,12 @@
         {% for key, val in instance.config.schema.items %}
         <tr>
             <td>{{ key }}</td>
-            <td><span class="pill t-{{val.type}}">{{ val.type }}</span></td>
             <td>
+                <span class="pill t-{{val.type}}">{{ val.type }}</span>
+                {% if val.component %}of <a href="#{{val.component}}">{{val.component}}</a>{% endif %}
+            </td>
+            <td>
+
                 {{ val.description }}
 {% if val.example %}
 <pre><code class="language-javascript">{{ val.example }}</code></pre>

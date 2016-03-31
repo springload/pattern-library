@@ -13,6 +13,7 @@ schema:
   tags:
     type: array
     description: "All the tags"
+    component: 'Tag'
   class:
     type: array
     description: "Modifier classes for tags. Use for theming maybe?"
