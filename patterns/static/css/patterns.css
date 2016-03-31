@@ -251,12 +251,12 @@ cite {
     text-overflow: ellipsis;
 }
 
-.t-dark .tag__item {
+.t-dark .c-tag {
     background-color: grey;
     color: white;
 }
 
-.t-dark .tag__item:hover {
+.t-dark .c-tag:hover {
     background-color: #5D5C5C;
 }
 

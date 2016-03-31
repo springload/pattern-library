@@ -1,0 +1,21 @@
+defaults:
+  cards: false
+demo:
+  cards:
+    - title: 'Card title'
+      excerpt: 'This is a short card intro'
+      url: 'http://google.com'
+    - label: 'Card title'
+      excerpt: 'This is a short card intro'
+      url: 'http://google.com'
+  class:
+    - 't-dark'
+
+schema:
+  cards:
+    type: array
+    description: "All the cards"
+    component: 'Card'
+  class:
+    type: array
+    description: "Modifier class for cards. Use for theming maybe?"
