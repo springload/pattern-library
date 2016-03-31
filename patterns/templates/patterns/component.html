@@ -30,7 +30,7 @@
             <td>{{ key }}</td>
             <td>
                 <span class="pill t-{{val.type}}">{{ val.type }}</span>
-                {% if val.component %}of <a href="{% url 'pattern_library' %}#{{val.component}}">{{val.component}}</a>{% endif %}
+                {% if val.component %}of <a href="{% url 'pattern_library_component' val.component %}">{{val.component}}</a>{% endif %}
             </td>
             <td>
                 {{ val.description }}
