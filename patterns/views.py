@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from components.base import registry
 import collections
+from components import refresh
 
 
 def get_all():
@@ -11,6 +12,8 @@ def get_all():
 
 
 def all(request):
+    refresh()
+
     context = {
         'components': get_all()
     }
@@ -19,6 +22,8 @@ def all(request):
 
 
 def one(request, component_name):
+    refresh()
+
     context = {
         'components': get_all(),
         'foo': registry[component_name],

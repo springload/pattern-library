@@ -16,7 +16,6 @@ def is_quoted(s):
     return (s[0] == s[-1]) and s.startswith(("'", '"'))
 
 
-
 def load_dict(path):
     conf_path = '.'.join(path.split('.')[:-1])
     dict_name = path.split('.')[-1]
@@ -28,9 +27,10 @@ def load_dict(path):
 
     attrs = {}
 
-    try:
-        attrs = module.__dict__[dict_name]
-    except KeyError as e:
-        raise e
+    if module:
+        try:
+            attrs = module.__dict__[dict_name]
+        except KeyError as e:
+            raise e
 
     return attrs
