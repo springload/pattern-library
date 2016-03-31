@@ -1,0 +1,11 @@
+defaults:
+  title: ''
+
+demo:
+  title: ''
+
+schema:
+  title:
+    type: string
+    description: "The title attribute for the Card"
+            

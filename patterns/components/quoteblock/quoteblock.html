@@ -1,0 +1,19 @@
+{% load component_tags %}
+<blockquote class="c-blockquote {{ data.class|join:' ' }}">
+    {% for item in data.body %}
+        {% block body %}
+        <p>
+            {{ item }}
+        </p>
+        {% endblock %}
+    {% endfor %}
+    {% if data.cite %}
+        <cite>
+        <span>&ndash;</span>
+        {% if data.src %}<a href="{{ data.src }}">{% endif %}
+            {{ data.cite }}
+        {% if data.src %}</a>{% endif %}
+        </cite>
+    {% endif %}
+</blockquote>
+

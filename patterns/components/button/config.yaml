@@ -2,6 +2,8 @@ demo:
   label: 'I am a button!'
   attrs:
     data-foo: 'bar'
+  class:
+    - test
 schema:
   label:
     type: string

@@ -1,0 +1,18 @@
+defaults:
+  tags: false
+demo:
+  tags:
+    - label: 'Foo'
+      url: 'http://google.com'
+    - label: 'Bar'
+      url: 'http://google.com'
+  class:
+    - 't-dark'
+
+schema:
+  tags:
+    type: array
+    description: "All the tags"
+  class:
+    type: array
+    description: "Modifier classes for tags. Use for theming maybe?"

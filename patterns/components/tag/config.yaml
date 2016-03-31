@@ -1,0 +1,14 @@
+defaults:
+  label: ''
+
+demo:
+  label: 'Label'
+  url: 'http://test.com'
+
+schema:
+  label:
+    type: string
+    description: "The title for the Tag"
+  url:
+    type: string
+    description: "Tag url"

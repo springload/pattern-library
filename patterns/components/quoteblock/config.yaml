@@ -1,0 +1,21 @@
+demo:
+  body:
+    - 'First paragraph of quote text'
+  cite: 'Citation'
+  src: 'http://google.com'
+  class:
+    - test
+    - name
+schema:
+  body:
+    type: array
+    description: Array so can have multiple paragraphs
+  cite:
+    type: string
+    description: Optional citation
+  src:
+    type: string
+    description: Optional quote source url for citation
+  class:
+    type: array
+    description: "A list of class names, e.g: ['foo','bar']"

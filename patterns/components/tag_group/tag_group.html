@@ -1,0 +1,5 @@
+<div class='c-tags {{ data.class|join:' ' }}'>
+{% for tag in data.tags %}
+{% component "tag" data=tag %}
+{% endfor %}
+</div>
