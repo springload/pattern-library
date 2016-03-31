@@ -1,7 +1,10 @@
-from django.shortcuts import render
-from components.base import registry
 import collections
+
+from django.shortcuts import render
+from django.conf import settings
+
 from components import refresh
+from components.base import registry
 
 
 def get_all():
@@ -12,7 +15,8 @@ def get_all():
 
 
 def all(request):
-    refresh()
+    if settings.DEBUG:
+        refresh()
 
     context = {
         'components': get_all()
@@ -22,7 +26,8 @@ def all(request):
 
 
 def one(request, component_name):
-    refresh()
+    if settings.DEBUG:
+        refresh()
 
     context = {
         'components': get_all(),
