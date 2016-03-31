@@ -147,6 +147,14 @@ h4 {
 
 .nav {
     position: fixed;
+    max-width: 180px;
+    width: 100%;
+}
+
+hr {
+    border: 0;
+    height: 0;
+    border-bottom: solid 1px #bbb;
 }
 
 .nav__item {
@@ -165,6 +173,10 @@ h4 {
     color: #0099AD;
 }
 
+
+.nav__current {
+    color: #222 !important;
+}
 
 
 

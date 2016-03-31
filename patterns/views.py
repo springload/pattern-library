@@ -1,10 +1,36 @@
 from django.shortcuts import render
 from components.base import registry
+import collections
+
+
+def get_all():
+    reg = collections.OrderedDict(sorted(registry.items()))
+    reg.pop('BaseComponent', None)
+    reg.pop('MissingComponent', None)
+    return reg
+
+
+def all(request):
+    context = {
+        'components': get_all()
+    }
+
+    return render(request, 'patterns/index.html', context)
+
+
+def one(request, component_name):
+    context = {
+        'components': get_all(),
+        'foo': registry[component_name],
+        'name': registry[component_name].__name__
+    }
+
+    return render(request, 'patterns/one.html', context)
 
 
 # Create your views here.
-def index(request):
-    return render(request, 'patterns/index.html', {
+def examples(request):
+    return render(request, 'patterns/examples.html', {
         'button_data': {
             'label': 'A button',
             'type': 'Primary'
@@ -33,24 +59,3 @@ def index(request):
             ]
         }
     })
-
-
-def all(request):
-
-    registry.pop('BaseComponent', None)
-    registry.pop('MissingComponent', None)
-
-    context = {
-        'components': registry
-    }
-
-    return render(request, 'patterns/all.html', context)
-
-
-def one(request, component_name):
-    context = {
-        'foo': registry[component_name],
-        'name': registry[component_name].__name__
-    }
-
-    return render(request, 'patterns/one.html', context)

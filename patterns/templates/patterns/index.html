@@ -1,53 +1,27 @@
 {% extends "patterns/base.html" %}
-
 {% load component_tags %}
 
+{% block title %}All patterns{% endblock %}
+
 {% block body %}
-    <h1>Components</h1>
+<div class="panels">
 
-    {% load_data "example.conf.BUTTON_DATA" as common_data %}
+    <div class="panel-left depth-1">
+        <div class="nav">
+            {% include "patterns/nav.html" %}
+        </div>
+    </div>
+    <div class="panel-right">
+        <div class="container">
+            <h1>All components</h1>
+        </div>
 
-    <h3>Default button</h3>
-    {% component "button" data=common_data  %}
-
-    {% options button_data %}
-      {
-        "label": "{{ 'A label!' }}",
-        "class": ["btn-primary"]
-      }
-    {% endoptions %}
-    {% component "button" data=button_data %}
-
-
-    <h3>Button with extended options</h3>
-
-    {% options 'example.conf.DEFAULT_BUTTON' button_data %}
-      {
-        "class": [
-          "btn",
-          "btn-primary",
-          "btn-options"
-        ],
-        "attrs": {
-            "data-button": "some-value"
-        },
-        "label": "{{ 'I changed the label' }}"
-      }
-    {% endoptions %}
-    {% component "button" data=button_data %}
-
-
-    {% component "button" data=button_data %}
-
-
-
-
-    <hr>
-    {% component "modal" data=alert_data %}
-    <hr>
-    <h2>Radio picker</h2>
-    {% component "radio_picker" data='example.conf.DONATION_DATA' %}
-    <hr>
-    {% component "dropdown" data='example.conf.GENERIC_DROPDOWN' %}
+        <div class="container component-library" >
+        {% for name, component in components.items %}
+            {% include "patterns/component.html" with name=name  %}
+        {% endfor %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}

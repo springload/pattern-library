@@ -1,7 +1,7 @@
 {% load component_tags %}
 
 <div class="card paper-material component" id="{{ name }}">
-<h5 class='component__title'>{{ name }}</h5>
+<h5 class='component__title'>{{ name|snakeify }}</h5>
 {% load_component name as instance %}
 
 <div class="markdown component__description">
