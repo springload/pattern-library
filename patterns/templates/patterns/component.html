@@ -1,7 +1,7 @@
 {% load component_tags %}
 
 <div class="card paper-material component" id="{{ name }}">
-<h5 class='component__title'>{{ name }}</h5>
+<h5 class='component__title'>{{ name|snakeify }}</h5>
 {% load_component name as instance %}
 
 <div class="markdown component__description">
@@ -12,7 +12,7 @@
 
     <h4>Usage</h4>
     <p class='font-small'>
-<pre class="font-small"><code class="language-twig">{% templatetag openblock %} component "{{ name|snakeify }}" data=my_options {% templatetag closeblock %}</code></pre>
+        <pre class="font-small"><code class="language-twig">{% templatetag openblock %} component "{{ name|snakeify }}" data=my_options {% templatetag closeblock %}</code></pre>
     </p>
 
     <h4>Options</h4>
@@ -30,14 +30,13 @@
             <td>{{ key }}</td>
             <td>
                 <span class="pill t-{{val.type}}">{{ val.type }}</span>
-                {% if val.component %}of <a href="#{{val.component}}">{{val.component}}</a>{% endif %}
+                {% if val.component %}of <a href="{% url 'pattern_library_component' val.component %}">{{val.component}}</a>{% endif %}
             </td>
             <td>
-
                 {{ val.description }}
-{% if val.example %}
-<pre><code class="language-javascript">{{ val.example }}</code></pre>
-{% endif %}
+                {% if val.example %}
+                <pre><code class="language-javascript">{{ val.example }}</code></pre>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

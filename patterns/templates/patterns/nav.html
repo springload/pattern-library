@@ -1,0 +1,9 @@
+<div class="nav__item">
+    <a {% if not current %}class="nav__current"{% endif %} href="{% url "pattern_library" %}">All components</a>
+</div>
+<hr>
+{% for name, component in components.items %}
+<div class='nav__item'>
+    <a {% if current == name %}class="nav__current"{% endif %} href=" {% url 'pattern_library_component' name %}">{{name}}</a>
+</div>
+{% endfor %}
