@@ -1,3 +1,13 @@
 .c-tags {
 
 }
+
+
+.t-dark .tag__item {
+    background-color: grey;
+    color: white;
+}
+
+.t-dark .tag__item:hover {
+    background-color: #5D5C5C;
+}

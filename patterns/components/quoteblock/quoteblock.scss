@@ -1,0 +1,15 @@
+.c-quoteblock,
+blockquote {
+    margin: 0;
+    padding-left: 1em;
+    border-left: solid 3px grey;
+
+    > :first-child {
+        margin-top: 0;
+    }
+}
+
+cite {
+    display: inline-block;
+}
+

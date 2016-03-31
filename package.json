@@ -1,0 +1,39 @@
+{
+  "name": "pattern-library",
+  "version": "1.0.0",
+  "description": "This is some _very_ initial thinking about how a pattern library could work.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css": "gulp css",
+    "watch": "gulp watch",
+    "build": "NODE_ENV=production gulp",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/springload/pattern-library.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/springload/pattern-library/issues"
+  },
+  "homepage": "https://github.com/springload/pattern-library#readme",
+  "devDependencies": {
+    "cssnano-cli": "^1.0.3",
+    "gulp": "^3.9.1",
+    "gulp-cssnano": "^2.1.1",
+    "gulp-postcss": "^6.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "postcss": "^5.0.19",
+    "postcss-easy-import": "^1.0.1",
+    "precss": "^1.4.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.3.5"
+  }
+}

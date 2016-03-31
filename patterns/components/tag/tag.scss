@@ -1,3 +1,32 @@
 .c-tag {
+    display: inline-block;
+    vertical-align: middle;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: .25em;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .9375rem;
+    font-weight: 400;
+    text-decoration: none;
+    line-height: 1.5;
+    margin: inherit 0 0 0;
+    padding-bottom: 0;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+    padding-top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+
+.t-dark .c-tag {
+    background-color: grey;
+    color: white;
+}
+
+.t-dark .c-tag:hover {
+    background-color: #5D5C5C;
 }

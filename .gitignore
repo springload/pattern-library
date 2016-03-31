@@ -36,3 +36,5 @@ bower_components/
 
 Vagrantfile
 .bundle
+patterns/static/css/screen.css.map
+patterns/static/css/screen.css
