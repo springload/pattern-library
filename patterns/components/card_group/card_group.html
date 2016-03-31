@@ -1,3 +1,7 @@
-<div class='c-card-group'>
+{% load component_tags %}
 
+<div class='c-card-group {{ data.class|join:' ' }}'>
+{% for card in data.cards %}
+{% component "card" data=card %}
+{% endfor %}
 </div>

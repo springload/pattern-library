@@ -1,11 +1,31 @@
 defaults:
   title: ''
+  subtitle: ''
+  excerpt: ''
+  url: ''
+  img:
+    src: ''
+    alt: ''
 
 demo:
-  title: ''
+  title: 'Card title'
+  subtitle: 'Byline or date'
+  excerpt: 'This is a short card intro'
+  url: 'http://google.com'
+  img:
+    src: 'path/to/image'
+    alt: 'Alt text'
 
 schema:
   title:
     type: string
     description: "The title attribute for the Card"
-            
+  subtitle:
+    type: string
+    description: "Optional subtitle for card"
+  url:
+    type: string
+    description: "Card url"
+  img:
+    type: array
+    description: "Contains path to image and alternative text"

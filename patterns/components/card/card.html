@@ -1,3 +1,8 @@
 <div class='c-card'>
-
+    {% if data.img %}
+    <img src="{{ data.img.src }}" alt="{{ data.img.alt }}">
+    {% endif %}
+    <h2>{{ data.title }}</h2>
+    {% if data.subtitle %}<h3>{{ data.subtitle }}</h3>{% endif %}
+    <p>{{ data.excerpt }}</p>
 </div>

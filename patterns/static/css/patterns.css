@@ -272,5 +272,26 @@ cite {
     background-color: #5D5C5C;
 }
 
+.grid-float {
+    width: auto;
+    margin-left: -1.5rem;
+}
+
+    .grid-float > * {
+        float: left;
+        width: 100%;
+        padding-left: 1.5rem;
+    }
+
+    .grid-float:before {
+        content: '';
+        display: table;
+    }
+    .grid-float:after {
+        display: block;
+        content: '';
+        clear: both;
+    }
+
 
 

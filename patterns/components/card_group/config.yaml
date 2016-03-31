@@ -3,11 +3,19 @@ defaults:
 demo:
   cards:
     - title: 'Card title'
+      subtitle: 'Byline or date'
       excerpt: 'This is a short card intro'
       url: 'http://google.com'
-    - label: 'Card title'
+      img:
+        src: 'path/to/image'
+        alt: 'Alt text'
+    - title: 'Card title'
+      subtitle: 'Byline or date'
       excerpt: 'This is a short card intro'
       url: 'http://google.com'
+      img:
+        src: 'path/to/image'
+        alt: 'Alt text'
   class:
     - 't-dark'
 
