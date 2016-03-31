@@ -30,14 +30,13 @@
             <td>{{ key }}</td>
             <td>
                 <span class="pill t-{{val.type}}">{{ val.type }}</span>
-                {% if val.component %}of <a href="#{{val.component}}">{{val.component}}</a>{% endif %}
+                {% if val.component %}of <a href="{% url 'pattern_library' %}#{{val.component}}">{{val.component}}</a>{% endif %}
             </td>
             <td>
-
                 {{ val.description }}
-{% if val.example %}
-<pre><code class="language-javascript">{{ val.example }}</code></pre>
-{% endif %}
+                {% if val.example %}
+                <pre><code class="language-javascript">{{ val.example }}</code></pre>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
