@@ -147,4 +147,5 @@ class Command(BaseCommand):
                     with open(new_path, 'wb') as new_file:
                         new_file.write(content)
 
-                    print '[Created] {file}'.format(file=new_path)
+                    rel_path = new_path.replace(settings.BASE_DIR, '')
+                    print '[Created] {file}'.format(file=rel_path)
