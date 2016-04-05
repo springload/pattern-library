@@ -1,0 +1,23 @@
+defaults:
+  src: ''
+  alt: ''
+  caption: false
+
+demo:
+  src: 'path/to/image'
+  alt: 'Alt text'
+  caption:
+    text: 'Caption text'
+    class:
+      - '-overlay'
+
+schema:
+  src:
+    type: string
+    description: "Source path to image"
+  alt:
+    type: string
+    description: "Alternative text. Is important for accessibility so this is required"
+  caption:
+    type: array
+    description: 'Contains caption text and any modifier class'

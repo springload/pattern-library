@@ -1,0 +1,7 @@
+{% load component_tags %}
+<div class="c-image">
+    <img src="{{ data.src }}" alt="{{ data.alt }}">
+    {% if data.caption %}
+        {% component "caption" data=data.caption %}
+    {% endif %}
+</div>

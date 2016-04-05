@@ -1,0 +1,16 @@
+defaults:
+  text: ''
+  class: ''
+
+demo:
+  text: 'Caption text'
+  class:
+    - '-modifier'
+
+schema:
+  text:
+    type: string
+    description: 'Caption text'
+  class:
+    type: array
+    description: "Modifier classes"

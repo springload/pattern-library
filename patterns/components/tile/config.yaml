@@ -34,9 +34,5 @@ schema:
   img:
     type: array
     description: "Contains path to image and alternative text"
-    example: >
-      {
-        "src": "path/to/image",
-        "alt": "Alt text"
-      }
+    component: 'Image'
 
