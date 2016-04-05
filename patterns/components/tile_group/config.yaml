@@ -1,18 +1,20 @@
 defaults:
-  cards: false
+  tiles: false
 demo:
-  cards:
-    - title: 'Card title'
+  tiles:
+    - title: 'Tile title'
       subtitle: 'Byline or date'
       excerpt: 'This is a short card intro'
       url: 'http://google.com'
+      linkText: 'Read more'
       img:
         src: 'path/to/image'
         alt: 'Alt text'
-    - title: 'Card title'
+    - title: 'Tile title'
       subtitle: 'Byline or date'
       excerpt: 'This is a short card intro'
       url: 'http://google.com'
+      linkText: 'Read more'
       img:
         src: 'path/to/image'
         alt: 'Alt text'
@@ -20,10 +22,10 @@ demo:
     - 't-dark'
 
 schema:
-  cards:
+  tiles:
     type: array
-    description: "All the cards"
-    component: 'Card'
+    description: "All the tiles"
+    component: 'Tile'
   class:
     type: array
-    description: "Modifier class for cards. Use for theming"
+    description: "Modifier class for tiles. Use for theming"

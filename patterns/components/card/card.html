@@ -1,8 +1,12 @@
-<div class='o-material-paper c-card'>
+<a href="{{ data.url }}" class='o-material-paper c-card'>
     {% if data.img %}
-    <img src="{{ data.img.src }}" alt="{{ data.img.alt }}">
+    <div class="c-card__image">
+        <img src="{{ data.img.src }}" alt="{{ data.img.alt }}">
+    </div>
     {% endif %}
-    <h2>{{ data.title }}</h2>
-    {% if data.subtitle %}<h3>{{ data.subtitle }}</h3>{% endif %}
-    <p>{{ data.excerpt }}</p>
-</div>
+    <h2 class="c-card__title">{{ data.title }}</h2>
+    {% if data.subtitle %}<h3 class="c-card__subtitle">{{ data.subtitle }}</h3>{% endif %}
+    <div class="c-card__excerpt">
+        {{ data.excerpt }}
+    </div>
+</a>

@@ -1,0 +1,42 @@
+defaults:
+  title: ''
+  subtitle: ''
+  excerpt: ''
+  url: ''
+  linkText: ''
+  img:
+    src: ''
+    alt: ''
+
+demo:
+  title: 'Tile title'
+  subtitle: 'Byline or date'
+  excerpt: 'This is a short card intro'
+  url: 'http://google.com'
+  linkText: 'Read more'
+  img:
+    src: 'path/to/image'
+    alt: 'Alt text'
+
+schema:
+  title:
+    type: string
+    description: "The title for the Tile"
+  subtitle:
+    type: string
+    description: "Optional subtitle"
+  url:
+    type: string
+    description: "Tile url (opional)"
+  linkText:
+    type: string
+    description: "Link text. Tile is not a complex link so we have the option to add a \"Read more\" cta"
+  img:
+    type: array
+    description: "Contains path to image and alternative text"
+    example: >
+      {
+        "src": "path/to/image",
+        "alt": "Alt text"
+      }
+

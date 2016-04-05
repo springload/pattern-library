@@ -1,0 +1,9 @@
+{% load component_tags %}
+<div class="c-tile-group {{ data.class|join:' ' }}">
+{% for tile in data.tiles %}
+{% component "tile" data=tile %}
+{% endfor %}
+</div>
+
+
+
