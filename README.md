@@ -39,6 +39,8 @@ The pattern library has two simple goals:
 
 `./manage.py runserver`
 
+## View it on
+`http://localhost:8000`
 
 ### Creating new components
 Use `./manage.py createcomponent my_app my_component` to scafold the basic structure under `my_app/components/`
